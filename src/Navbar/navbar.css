@@ -1,0 +1,81 @@
+/* Navigation Bar CSS */
+.navbar {
+  background-color: #f06000;
+  overflow: hidden;
+  font-size: large;
+  width: 100%;
+}
+
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+/* h1 {
+  color: white;
+  font-size: x-large;
+  padding: 10px 10px;
+  text-align: center;
+} */
+
+.navbar a {
+  color: #ffffff;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+	float: left;
+	overflow:visible;
+}
+
+.dropbtn{
+	font-size: large;
+}
+
+.dropdown .dropbtn { 
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 10px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+.navbar a:hover{
+  background-color: white;
+  color: #f06000;
+}
+
+.dropdown-content a:hover{
+  color: white;
+  background-color: #f06000;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: white;
+	min-width: 0px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+  
+.dropdown-content a {
+	font-size: medium;
+	float: none;
+	color: #f06000;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+  
+.dropdown:hover .dropdown-content {
+	display: block;
+}
