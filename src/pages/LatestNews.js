@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
-
 import { HACKER_NEWS_API } from '../Config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faClock } from '@fortawesome/free-solid-svg-icons';
+import Pagination from '../component/Pagination/Pagination';
 
 function LatestNews() {
     const [news, setNews] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const totalItems = 300;
     const itemsPerPage = 30;
 
     useEffect(() => {
@@ -16,18 +19,6 @@ function LatestNews() {
 
                 const startIndex = (currentPage - 1) * itemsPerPage;
                 const endIndex = startIndex + itemsPerPage;
-
-                //Display all news
-                // const newsPromises = newsIDs.map(async (newsID) => {
-                //   const newsResponse = await fetch(HACKER_NEWS_API.ITEM(newsID));
-                //   return await newsResponse.json();
-                // });
-
-                //Display 30 news only
-                // const newsPromises = newsIDs.slice(0, 30).map(async (newsID) => {
-                //     const newsResponse = await fetch(HACKER_NEWS_API.ITEM(newsID));
-                //     return await newsResponse.json();
-                // });
 
                 // Display 30 news pagination
                 const newsPromises = newsIDs.slice(startIndex, endIndex).map(async (newsID) => {
@@ -53,57 +44,43 @@ function LatestNews() {
         return date.toLocaleString();
     };
 
-    return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Title</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {news.map((newsItem, index) => (
-                        <tr key={newsItem.id}>
-                            <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
-                            <td>
-                                <table>
-                                    <tbody >
-                                        <tr>
-                                            <td >
-                                                <a className="newsTitle" href={newsItem.url} target="_blank" rel="noopener noreferrer">
-                                                    {newsItem.title}
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td className="newsData">{newsItem.score} point by {newsItem.by} {formatTime(newsItem.time)}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
+    const handlePageChange = (newPage) => {
+        if(newPage >=1 && newPage <= totalItems){
+            setCurrentPage(newPage);
+        }
+    };
 
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+    return (
+        <>
+            <div className='container'>
+                <h2>Today Latest News</h2>
+                {news.map((newsItem, index) => (
+                    // <div className='text-center'>{(currentPage - 1) * itemsPerPage + index + 1}</div>
+                    <a className="newsTitle" href={newsItem.url} target="_blank" rel="noopener noreferrer">
+                        <div className='card'>
+                            <div className="order-card-left">
+                                <h3>{newsItem.title}</h3>
+                                <h4 className='newsData'><FontAwesomeIcon icon={faUser} /> Author: {newsItem.by} | <FontAwesomeIcon icon={faClock} /> Created at {formatTime(newsItem.time)}</h4>
+                            </div>
+                            <div class="order-card-right">
+                                <h4 className='newsData'>{newsItem.score} point</h4>
+
+                            </div>
+                        </div>
+                    </a>
+                ))}
+            </div>
 
             <div className="pagination">
-                <button
-                    disabled={currentPage === 1}
-                    onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                    Previous
-                </button>
-                <span>Page {currentPage}</span>
-                <button
-                    disabled={news.length < itemsPerPage}
-                    onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                    Next
-                </button>
+                <Pagination
+                    currentPage={currentPage}
+                    totalItems={totalItems}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={handlePageChange}
+                />
             </div>
-        </div>
+
+        </>
     );
 }
 

@@ -1,0 +1,23 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8p;
+    margin: 10px;
+}
+
+.button {
+    background-color: white;
+    color: #f06000;
+    border: none;
+    cursor: pointer;
+    font-size: x-large;
+}
+
+button:hover{
+    color: #e5c5af;
+}
+
+button:disabled {
+    cursor: default;
+    color: gray 
+}

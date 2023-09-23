@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './Navbar/navbar';
+import Navbar from './component/Navbar/navbar';
 import LatestNews from './pages/LatestNews';
 import NewsDetailPage from './pages/NewsDetailPage'; 
 
@@ -15,6 +15,7 @@ function App() {
       </Routes>
     </Router>
   );
+  
 }
 
 export default App;
